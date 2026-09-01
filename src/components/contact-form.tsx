@@ -1,10 +1,14 @@
 "use client";
 
-import { useActionState, type ReactNode } from "react";
+import {
+  useActionState,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 import { submitInquiry } from "@/app/actions/contact";
 import { buttonVariants } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { interests, site } from "@/lib/site";
 import type { ContactResult } from "@/lib/contact";
 import { cn } from "@/lib/utils";
@@ -12,11 +16,44 @@ import { cn } from "@/lib/utils";
 const fieldClass =
   "h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
 
+type Fields = {
+  name: string;
+  email: string;
+  organization: string;
+  phone: string;
+  interest: string;
+  message: string;
+};
+
+const emptyFields: Fields = {
+  name: "",
+  email: "",
+  organization: "",
+  phone: "",
+  interest: "unsure",
+  message: "",
+};
+
+// Survives client remounts (Next.js router refresh) without a hydration mismatch.
+let draft: Fields = { ...emptyFields };
+
 export function ContactForm() {
-  const [state, action, pending] = useActionState<ContactResult | null, FormData>(
+  const [fields, setFields] = useState<Fields>(draft);
+  const [state, submit, pending] = useActionState<ContactResult | null, FormData>(
     submitInquiry,
     null,
   );
+
+  useEffect(() => {
+    if (state?.ok) {
+      draft = { ...emptyFields };
+    }
+  }, [state]);
+
+  function update<K extends keyof Fields>(key: K, value: string) {
+    draft = { ...draft, [key]: value };
+    setFields(draft);
+  }
 
   if (state?.ok) {
     return (
@@ -38,52 +75,65 @@ export function ContactForm() {
   }
 
   return (
-    <form action={action} className="relative space-y-5">
+    <form
+      action={submit}
+      onReset={(event) => event.preventDefault()}
+      className="relative space-y-5"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Full name" htmlFor="name">
+        <Field label="Full name" htmlFor="inquiry-name">
           <input
-            id="name"
+            id="inquiry-name"
             name="name"
             required
             autoComplete="name"
+            value={fields.name}
+            onChange={(event) => update("name", event.target.value)}
             className={fieldClass}
           />
         </Field>
-        <Field label="Work email" htmlFor="email">
+        <Field label="Work email" htmlFor="inquiry-email">
           <input
-            id="email"
+            id="inquiry-email"
             name="email"
             type="email"
             required
             autoComplete="email"
+            value={fields.email}
+            onChange={(event) => update("email", event.target.value)}
             className={fieldClass}
           />
         </Field>
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Company or family office" htmlFor="organization">
+        <Field label="Company or family office" htmlFor="inquiry-organization">
           <input
-            id="organization"
+            id="inquiry-organization"
             name="organization"
             autoComplete="organization"
+            value={fields.organization}
+            onChange={(event) => update("organization", event.target.value)}
             className={fieldClass}
           />
         </Field>
-        <Field label="Phone" htmlFor="phone">
+        <Field label="Phone" htmlFor="inquiry-phone">
           <input
-            id="phone"
+            id="inquiry-phone"
             name="phone"
             type="tel"
             autoComplete="tel"
+            value={fields.phone}
+            onChange={(event) => update("phone", event.target.value)}
             className={fieldClass}
           />
         </Field>
       </div>
-      <Field label="What would help most?" htmlFor="interest">
+      <Field label="What would help most?" htmlFor="inquiry-interest">
         <select
-          id="interest"
+          id="inquiry-interest"
           name="interest"
-          defaultValue="unsure"
+          value={fields.interest}
+          onChange={(event) => update("interest", event.target.value)}
           className={fieldClass}
         >
           {interests.map((interest) => (
@@ -93,24 +143,20 @@ export function ContactForm() {
           ))}
         </select>
       </Field>
-      <Field label="How can we help?" htmlFor="message">
+      <Field label="How can we help?" htmlFor="inquiry-message">
         <textarea
-          id="message"
+          id="inquiry-message"
           name="message"
           rows={5}
+          value={fields.message}
+          onChange={(event) => update("message", event.target.value)}
           placeholder="A sentence or two about your environment, a concern, or what you would like to discuss."
           className="min-h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         />
       </Field>
-      {/* Honeypot: leave empty. Named to avoid password-manager autofill. */}
-      <div className="absolute -left-[10000px] h-0 w-0 overflow-hidden" aria-hidden="true">
-        <label htmlFor="fax_confirm">Fax</label>
-        <input
-          id="fax_confirm"
-          name="fax_confirm"
-          tabIndex={-1}
-          autoComplete="off"
-        />
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor="inquiry-fax">Fax</label>
+        <input id="inquiry-fax" name="fax_confirm" tabIndex={-1} autoComplete="off" />
       </div>
       {state && !state.ok ? (
         <p className="text-sm text-destructive" role="alert">
@@ -151,7 +197,9 @@ function Field({
 }) {
   return (
     <div className="space-y-2">
-      <Label htmlFor={htmlFor}>{label}</Label>
+      <label htmlFor={htmlFor} className="text-sm font-medium leading-none">
+        {label}
+      </label>
       {children}
     </div>
   );
