@@ -7,7 +7,7 @@ export type ContactPayload = {
   phone: string;
   interest: string;
   message: string;
-  website: string;
+  faxConfirm: string;
 };
 
 export type ContactResult =
@@ -16,7 +16,12 @@ export type ContactResult =
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function read(formData: FormData, key: keyof ContactPayload): string {
+function read(formData: FormData, key: Exclude<keyof ContactPayload, "faxConfirm">): string {
+  const value = formData.get(key);
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function readRaw(formData: FormData, key: string): string {
   const value = formData.get(key);
   return typeof value === "string" ? value.trim() : "";
 }
@@ -29,12 +34,12 @@ export function parseContactForm(formData: FormData): ContactPayload {
     phone: read(formData, "phone"),
     interest: read(formData, "interest"),
     message: read(formData, "message"),
-    website: read(formData, "website"),
+    faxConfirm: readRaw(formData, "fax_confirm"),
   };
 }
 
 export function validateContact(payload: ContactPayload): string | null {
-  if (payload.website) {
+  if (payload.faxConfirm) {
     return null;
   }
 

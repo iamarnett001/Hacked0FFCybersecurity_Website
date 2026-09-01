@@ -13,7 +13,7 @@ export async function submitInquiry(
 ): Promise<ContactResult> {
   const payload = parseContactForm(formData);
 
-  if (payload.website) {
+  if (payload.faxConfirm) {
     return { ok: true };
   }
 

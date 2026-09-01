@@ -3,14 +3,14 @@
 import { useActionState, type ReactNode } from "react";
 
 import { submitInquiry } from "@/app/actions/contact";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { buttonVariants } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { interests, site } from "@/lib/site";
 import type { ContactResult } from "@/lib/contact";
+import { cn } from "@/lib/utils";
 
-const fieldClass = "h-11 rounded-md px-3 text-sm";
+const fieldClass =
+  "h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
 
 export function ContactForm() {
   const [state, action, pending] = useActionState<ContactResult | null, FormData>(
@@ -38,10 +38,10 @@ export function ContactForm() {
   }
 
   return (
-    <form action={action} className="space-y-5">
+    <form action={action} className="relative space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Full name" htmlFor="name">
-          <Input
+          <input
             id="name"
             name="name"
             required
@@ -50,7 +50,7 @@ export function ContactForm() {
           />
         </Field>
         <Field label="Work email" htmlFor="email">
-          <Input
+          <input
             id="email"
             name="email"
             type="email"
@@ -62,7 +62,7 @@ export function ContactForm() {
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Company or family office" htmlFor="organization">
-          <Input
+          <input
             id="organization"
             name="organization"
             autoComplete="organization"
@@ -70,7 +70,7 @@ export function ContactForm() {
           />
         </Field>
         <Field label="Phone" htmlFor="phone">
-          <Input
+          <input
             id="phone"
             name="phone"
             type="tel"
@@ -84,7 +84,7 @@ export function ContactForm() {
           id="interest"
           name="interest"
           defaultValue="unsure"
-          className="h-11 w-full rounded-md border border-input bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          className={fieldClass}
         >
           {interests.map((interest) => (
             <option key={interest.value} value={interest.value}>
@@ -94,17 +94,23 @@ export function ContactForm() {
         </select>
       </Field>
       <Field label="How can we help?" htmlFor="message">
-        <Textarea
+        <textarea
           id="message"
           name="message"
           rows={5}
           placeholder="A sentence or two about your environment, a concern, or what you would like to discuss."
-          className="min-h-32 rounded-md px-3 text-sm"
+          className="min-h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         />
       </Field>
-      <div className="hidden" aria-hidden="true">
-        <label htmlFor="website">Website</label>
-        <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+      {/* Honeypot: leave empty. Named to avoid password-manager autofill. */}
+      <div className="absolute -left-[10000px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label htmlFor="fax_confirm">Fax</label>
+        <input
+          id="fax_confirm"
+          name="fax_confirm"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
       {state && !state.ok ? (
         <p className="text-sm text-destructive" role="alert">
@@ -112,13 +118,13 @@ export function ContactForm() {
         </p>
       ) : null}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <Button
+        <button
           type="submit"
           disabled={pending}
-          className="h-11 rounded-md px-5 text-sm"
+          className={cn(buttonVariants(), "h-11 rounded-md px-5 text-sm")}
         >
           {pending ? "Sending…" : "Request more information"}
-        </Button>
+        </button>
         <p className="text-xs leading-relaxed text-muted-foreground">
           Or email{" "}
           <a

@@ -1,6 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
@@ -28,19 +26,13 @@ export function Hero() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
               href="#contact"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "h-11 rounded-md bg-background px-5 text-sm text-foreground hover:bg-background/90",
-              )}
+              className="inline-flex h-11 items-center justify-center rounded-md bg-primary-foreground px-5 text-sm font-medium text-primary transition-colors hover:bg-primary-foreground/90"
             >
               Request a conversation
             </a>
             <a
               href="#services"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "h-11 rounded-md border-primary-foreground/25 bg-transparent px-5 text-sm text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground",
-              )}
+              className="inline-flex h-11 items-center justify-center rounded-md border border-primary-foreground/80 bg-transparent px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
             >
               See how we work
             </a>
