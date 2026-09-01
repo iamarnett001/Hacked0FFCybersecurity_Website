@@ -10,7 +10,38 @@ A professional marketing site for cybersecurity services aimed at family busines
 - Tailwind CSS and shadcn/ui
 - Server Action contact form (`info@hacked0ff.com`)
 
-This is a static-feeling marketing site with one server action for inquiries. Deploy it on Vercel from GitHub.
+This is a static-feeling marketing site with one server action for inquiries. Deploy it on Vercel from the repository.
+
+## Repository
+
+The code lives in a **private** repository: [charles-arnett/Hacked0FFCybersecurity_Website](https://cursor.com/codebase/charles-arnett/Hacked0FFCybersecurity_Website). Visibility can be changed in settings on that page.
+
+### Clone on Windows (WSL)
+
+Origin CLI runs on macOS, Linux, and WSL — not in PowerShell. In a WSL terminal:
+
+```bash
+# Run in WSL (Origin CLI is not available in PowerShell)
+# Install the Origin CLI
+curl -fsSL https://downloads.cursor.com/origin/install.sh | sh
+
+# Sign in (also sets up git credentials)
+origin auth login
+
+# Clone the repository
+origin repo clone charles-arnett/Hacked0FFCybersecurity_Website
+```
+
+If `origin` is not found after install, persist `~/.local/bin` on PATH:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Origin CLI docs: [https://cursor.com/docs/origin/cli](https://cursor.com/docs/origin/cli)
+
+Do not commit `.env.local` or API keys. `.gitignore` already excludes `.env*`.
 
 ## Run locally
 
@@ -26,42 +57,9 @@ npm run lint
 npm run build
 ```
 
-## How to put this on GitHub
-
-This project is already a git repository. To host the code on GitHub:
-
-1. Create a new **empty** GitHub repository (no README, license, or `.gitignore` — this repo already has those).
-2. Copy the remote URL GitHub shows you.
-3. Point this project at that remote and push:
-
-```bash
-git remote add origin git@github.com:YOUR_USER/YOUR_REPO.git
-# If origin already exists (it may, from this workspace):
-# git remote set-url origin git@github.com:YOUR_USER/YOUR_REPO.git
-
-git push -u origin main
-```
-
-If you prefer HTTPS:
-
-```bash
-git remote set-url origin https://github.com/YOUR_USER/YOUR_REPO.git
-git push -u origin main
-```
-
-After the first push, every commit can go up with `git add`, `git commit`, and `git push`.
-
-### Suggested GitHub settings
-
-- Keep the repository **private** until you are ready to publish the site.
-- Add a collaborator if someone else will edit copy.
-- Do not commit `.env.local` or API keys. `.gitignore` already excludes `.env*`.
-
 ## Publish the website
 
-The site is built for [Vercel](https://vercel.com). Connect the GitHub repository, leave the defaults (Next.js is detected automatically), and each push to `main` deploys.
-
-If you use the Publish control in Cursor, it will wire the same GitHub-to-Vercel flow.
+The site is built for [Vercel](https://vercel.com). Connect this repository, leave the defaults (Next.js is detected automatically), and each push to `main` deploys.
 
 ## Contact form email
 
