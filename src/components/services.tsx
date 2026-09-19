@@ -9,7 +9,7 @@ export function Services() {
             Services
           </p>
           <h2 className="mt-4 font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-            Three connected services. Use one, or run them as a program.
+            Three connected services. Use one, or combine them as a program.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
             Each engagement is sized to your environment, operations, and risk —

@@ -4,48 +4,22 @@ A professional marketing site for cybersecurity services aimed at family busines
 
 **Tagline:** When business is personal, you need a cybersecurity professional you can trust.
 
+Live site: [https://hacked0ff.com](https://hacked0ff.com)
+
 ## Stack
 
 - Next.js (App Router) and TypeScript
 - Tailwind CSS and shadcn/ui
 - Server Action contact form (`info@hacked0ff.com`)
-
-This is a static-feeling marketing site with one server action for inquiries. Deploy it on Vercel from the repository.
+- Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`)
 
 ## Repository
 
-The code lives in a **private** repository: [charles-arnett/Hacked0FFCybersecurity_Website](https://cursor.com/codebase/charles-arnett/Hacked0FFCybersecurity_Website). Visibility can be changed in settings on that page.
-
-### Clone on Windows (WSL)
-
-Origin CLI runs on macOS, Linux, and WSL — not in PowerShell. In a WSL terminal:
+GitHub (private): [iamarnett001/Hacked0FFCybersecurity_Website](https://github.com/iamarnett001/Hacked0FFCybersecurity_Website)
 
 ```bash
-# Run in WSL (Origin CLI is not available in PowerShell)
-# Install the Origin CLI
-curl -fsSL https://downloads.cursor.com/origin/install.sh | sh
-
-# Sign in (also sets up git credentials)
-origin auth login
-
-# Clone the repository
-origin repo clone charles-arnett/Hacked0FFCybersecurity_Website
-```
-
-If `origin` is not found after install, persist `~/.local/bin` on PATH:
-
-```bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-Origin CLI docs: [https://cursor.com/docs/origin/cli](https://cursor.com/docs/origin/cli)
-
-Do not commit `.env.local` or API keys. `.gitignore` already excludes `.env*`.
-
-## Run locally
-
-```bash
+gh repo clone iamarnett001/Hacked0FFCybersecurity_Website
+cd Hacked0FFCybersecurity_Website
 npm install
 npm run dev
 ```
@@ -53,45 +27,47 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
+npm test
 npm run lint
 npm run build
 ```
 
-## Publish the website
+## Deploy to Cloudflare
 
-The site is built for [Vercel](https://vercel.com). Connect this repository, leave the defaults (Next.js is detected automatically), and each push to `main` deploys.
+The production site already runs on Cloudflare (`x-opennext: 1`). After this repo is connected to the Cloudflare Worker/Pages project for `hacked0ff.com`, each push to `main` deploys.
 
-## Contact form email
-
-The “Request more information” form validates on the server and, when email is configured, delivers the inquiry to `info@hacked0ff.com`.
-
-Without secrets, submissions still succeed in the UI so you can preview the site. They are logged on the server but **not emailed**. To send real mail:
-
-1. Create a free [Resend](https://resend.com) account.
-2. Verify `hacked0ff.com` (or use Resend’s onboarding domain for tests).
-3. Copy `.env.example` to `.env.local` and fill in:
+Manual deploy from a machine logged into Cloudflare:
 
 ```bash
-RESEND_API_KEY=re_xxxxxxxxx
-CONTACT_FROM_EMAIL="Website <noreply@hacked0ff.com>"
+npx wrangler login
+npm run deploy
+```
+
+Point the Worker named `hacked0ff-website` at `hacked0ff.com` in the Cloudflare dashboard if the custom domain is not already attached.
+
+### Secrets
+
+Set these in Cloudflare → Worker → Settings → Variables and Secrets (not in git):
+
+```
+RESEND_API_KEY
+CONTACT_FROM_EMAIL=Website <noreply@hacked0ff.com>
 CONTACT_TO_EMAIL=info@hacked0ff.com
 ```
 
-4. In Vercel, add the same values under Project → Settings → Environment Variables.
+Copy `.env.example` to `.env.local` for local email testing.
 
-Until that is set, people can still write to [info@hacked0ff.com](mailto:info@hacked0ff.com) from the page.
+## Security controls
+
+- `poweredByHeader` is off (no `X-Powered-By: Next.js`)
+- HSTS, CSP, `X-Frame-Options: DENY`, `nosniff`, Referrer-Policy, Permissions-Policy
+- Contact fields are length-capped and stripped of CR/LF to block SMTP header injection
+- Honeypot field plus per-IP rate limit (5 inquiries / 15 minutes)
+- Inquiry logs do not include names or email addresses
+- GitHub Actions runs `npm test`, `lint`, and `build` on every push
+
+Also turn on in the Cloudflare dashboard for `hacked0ff.com`: SSL/TLS Full (strict), Always Use HTTPS, Bot Fight Mode, and a WAF rate-limit on POST to `/`.
 
 ## Changing the company name
 
-The quiet legal name lives in `src/lib/site.ts` (`legalName` and `shortName`). Swap it there when you are ready; the rest of the site is written so the brand is not the headline.
-
-## Project layout
-
-```
-src/app/          # Next.js routes, layout, contact action
-src/components/   # Page sections and shadcn/ui primitives
-src/lib/site.ts   # Copy, services, statistics, contact details
-src/lib/contact.ts
-```
-
-Industry statistics on the site are attributed to public reports (IBM, Fortra, Veeam, CrowdStrike, TechValidate). They are used as cited facts, not as copied marketing copy from any vendor eBook.
+The quiet legal name lives in `src/lib/site.ts` (`legalName` and `shortName`).

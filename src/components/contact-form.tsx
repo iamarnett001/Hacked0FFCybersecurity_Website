@@ -86,6 +86,7 @@ export function ContactForm() {
             id="inquiry-name"
             name="name"
             required
+            maxLength={120}
             autoComplete="name"
             value={fields.name}
             onChange={(event) => update("name", event.target.value)}
@@ -98,6 +99,7 @@ export function ContactForm() {
             name="email"
             type="email"
             required
+            maxLength={254}
             autoComplete="email"
             value={fields.email}
             onChange={(event) => update("email", event.target.value)}
@@ -110,6 +112,7 @@ export function ContactForm() {
           <input
             id="inquiry-organization"
             name="organization"
+            maxLength={200}
             autoComplete="organization"
             value={fields.organization}
             onChange={(event) => update("organization", event.target.value)}
@@ -121,6 +124,7 @@ export function ContactForm() {
             id="inquiry-phone"
             name="phone"
             type="tel"
+            maxLength={40}
             autoComplete="tel"
             value={fields.phone}
             onChange={(event) => update("phone", event.target.value)}
@@ -150,6 +154,7 @@ export function ContactForm() {
           rows={5}
           value={fields.message}
           onChange={(event) => update("message", event.target.value)}
+          maxLength={4000}
           placeholder="A sentence or two about your environment, a concern, or what you would like to discuss."
           className="min-h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         />

@@ -10,7 +10,7 @@ export function SiteHeader() {
         <a href="#top" className="flex items-center gap-3 text-foreground">
           <Mark className="size-7 text-primary" />
           <span className="hidden text-[11px] font-medium tracking-[0.22em] uppercase text-muted-foreground sm:block">
-            Cybersecurity for family businesses
+            Cybersecurity for small businesses
           </span>
         </a>
 

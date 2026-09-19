@@ -1,4 +1,4 @@
-import { interests, site } from "@/lib/site";
+import { interests, site } from "./site";
 
 export type ContactPayload = {
   name: string;
@@ -14,27 +14,49 @@ export type ContactResult =
   | { ok: true }
   | { ok: false; error: string };
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+const PHONE_PATTERN = /^[0-9+().\s-]*$/;
 
-function read(formData: FormData, key: Exclude<keyof ContactPayload, "faxConfirm">): string {
-  const value = formData.get(key);
-  return typeof value === "string" ? value.trim() : "";
+const LIMITS = {
+  name: 120,
+  email: 254,
+  organization: 200,
+  phone: 40,
+  message: 4000,
+  faxConfirm: 200,
+} as const;
+
+export function stripHeaderUnsafe(value: string): string {
+  // CR/LF/NUL in From/Subject/Reply-To can be used for SMTP header injection.
+  return value.replace(/[\r\n\0]/g, "");
 }
 
-function readRaw(formData: FormData, key: string): string {
+function read(
+  formData: FormData,
+  key: Exclude<keyof ContactPayload, "faxConfirm">,
+  max: number,
+): string {
   const value = formData.get(key);
-  return typeof value === "string" ? value.trim() : "";
+  if (typeof value !== "string") {
+    return "";
+  }
+  return stripHeaderUnsafe(value).trim().slice(0, max);
 }
 
 export function parseContactForm(formData: FormData): ContactPayload {
+  const fax = formData.get("fax_confirm");
   return {
-    name: read(formData, "name"),
-    email: read(formData, "email"),
-    organization: read(formData, "organization"),
-    phone: read(formData, "phone"),
-    interest: read(formData, "interest"),
-    message: read(formData, "message"),
-    faxConfirm: readRaw(formData, "fax_confirm"),
+    name: read(formData, "name", LIMITS.name),
+    email: read(formData, "email", LIMITS.email).toLowerCase(),
+    organization: read(formData, "organization", LIMITS.organization),
+    phone: read(formData, "phone", LIMITS.phone),
+    interest: read(formData, "interest", 40),
+    message: read(formData, "message", LIMITS.message),
+    faxConfirm:
+      typeof fax === "string"
+        ? stripHeaderUnsafe(fax).trim().slice(0, LIMITS.faxConfirm)
+        : "",
   };
 }
 
@@ -51,15 +73,15 @@ export function validateContact(payload: ContactPayload): string | null {
     return "Please enter a valid email address.";
   }
 
+  if (payload.phone && !PHONE_PATTERN.test(payload.phone)) {
+    return "Please enter a valid phone number.";
+  }
+
   if (
     payload.interest &&
     !interests.some((item) => item.value === payload.interest)
   ) {
     return "Please choose a valid topic.";
-  }
-
-  if (payload.message.length > 4000) {
-    return "Please keep your note under 4,000 characters.";
   }
 
   return null;
@@ -84,15 +106,8 @@ export async function deliverInquiry(payload: ContactPayload): Promise<void> {
     payload.message || "(No additional note.)",
   ].join("\n");
 
-  // Resend needs a verified from-domain. Until those env vars exist, keep the
-  // form usable in preview and log the inquiry instead of failing the request.
   if (!apiKey || !from) {
-    console.info("[contact] Inquiry received (email delivery not configured):", {
-      name: payload.name,
-      email: payload.email,
-      organization: payload.organization,
-      interest: payload.interest,
-    });
+    console.info("[contact] Inquiry accepted; email delivery is not configured.");
     return;
   }
 
@@ -112,7 +127,6 @@ export async function deliverInquiry(payload: ContactPayload): Promise<void> {
   });
 
   if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(`Email delivery failed: ${response.status} ${detail}`);
+    throw new Error(`Email delivery failed: ${response.status}`);
   }
 }
