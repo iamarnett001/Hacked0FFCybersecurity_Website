@@ -43,7 +43,7 @@ export function Hero() {
             The brief
           </p>
           <p className="mt-4 font-heading text-2xl leading-snug text-primary-foreground">
-            Keep hackers off your business.
+            Mitigating risks helps keep hackers off your business.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
             Family companies and high-net-worth households are attacked because

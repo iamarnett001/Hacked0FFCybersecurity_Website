@@ -14,7 +14,7 @@ export function Outcomes() {
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               You should be able to run the company, travel, and sleep without
-              wondering who is watching the network — and understand your
+              wondering who is watching the network and understanding your
               cybersecurity posture well enough to explain it to others.
             </p>
           </div>
