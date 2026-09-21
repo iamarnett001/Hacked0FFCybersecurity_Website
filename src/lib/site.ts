@@ -6,7 +6,9 @@ export const site = {
     "When business is personal, you need a cybersecurity professional you can trust.",
   positioning: `We help family businesses, closely held companies, and high-net-worth households identify and reduce cyber risk through practical, effective security solutions.
 
-No buzzwords. No bloated programs. No selling you what you don't need.
+No buzzwords.
+                 No bloated programs.
+                                      No selling you what you don't need.
 
 Just clear advice, meaningful protection, and a trusted partner focused on your cyber risk, so you can focus on your business.`,
   description:
