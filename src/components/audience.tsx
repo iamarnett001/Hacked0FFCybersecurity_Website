@@ -9,7 +9,7 @@ export function Audience() {
             Who this is for
           </p>
           <h2 className="mt-4 font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-            Built for businesses where the owners still answer the phone.
+            Built for businesses where the owners are actively running it.
           </h2>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-3">

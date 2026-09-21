@@ -20,7 +20,7 @@ export function Hero() {
           <h1 className="font-heading text-4xl leading-[1.12] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {site.tagline}
           </h1>
-          <p className="max-w-xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg">
+          <p className="max-w-xl text-base leading-relaxed whitespace-pre-line text-primary-foreground/75 sm:text-lg">
             {site.positioning}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

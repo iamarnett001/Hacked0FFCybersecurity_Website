@@ -4,8 +4,11 @@ export const site = {
   email: "info@hacked0ff.com",
   tagline:
     "When business is personal, you need a cybersecurity professional you can trust.",
-  positioning:
-    "Practical cybersecurity for family businesses, closely held companies, and high-net-worth households. No theater. No enterprise sales process. We help identify and mitigate risks keeping hackers off your business so you can run it.",
+  positioning: `We help family businesses, closely held companies, and high-net-worth households identify and reduce cyber risk through practical, effective security solutions.
+
+No buzzwords. No bloated programs. No selling you what you don't need.
+
+Just clear advice, meaningful protection, and a trusted partner focused on your cyber risk, so you can focus on your business.`,
   description:
     "Trusted cybersecurity counsel for family businesses and high-net-worth owners. Assessment, managed protection, and incident readiness without building an internal security team.",
 } as const;

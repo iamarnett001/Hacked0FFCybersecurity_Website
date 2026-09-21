@@ -13,9 +13,9 @@ export function Outcomes() {
               The value is not a product list. It is what changes for you.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              You should be able to run the company, travel, and sleep without
+              You will be able to run the company, travel, and sleep without
               wondering who is watching the network and understanding your
-              cybersecurity posture well enough to explain it to others.
+              cybersecurity risk posture well enough to explain it to others.
             </p>
           </div>
           <div className="grid gap-px bg-border sm:grid-cols-2">

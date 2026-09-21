@@ -12,10 +12,10 @@ export function Services() {
             Three connected services. Use one, or combine them as a program.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Each engagement is sized to your environment, operations, and risk —
+            Each engagement is sized to your environment, operations, and risk, 
             not a packaged SKU. The objective is a trusted partner who helps you
-            understand risk, improve security, keep technology running, and
-            respond when something goes wrong.
+            understand risk, improve security, keep technology running, and able 
+            to respond when something goes wrong.
           </p>
         </div>
 

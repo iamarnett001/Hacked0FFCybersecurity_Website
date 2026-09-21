@@ -20,12 +20,12 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Cybersecurity for family businesses",
+    default: "Cybersecurity for small businesses",
     template: "%s",
   },
   description: site.description,
   openGraph: {
-    title: "Cybersecurity for family businesses",
+    title: "Cybersecurity for small businesses",
     description: site.tagline,
     type: "website",
   },
