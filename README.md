@@ -34,16 +34,27 @@ npm run build
 
 ## Deploy to Cloudflare
 
-The production site already runs on Cloudflare (`x-opennext: 1`). After this repo is connected to the Cloudflare Worker/Pages project for `hacked0ff.com`, each push to `main` deploys.
+Cloudflare currently runs `npm run build` then `npx wrangler deploy`. Those are two different tools:
 
-Manual deploy from a machine logged into Cloudflare:
+1. **`next build`** (`npm run build`) compiles the Next.js app. That is the “Compiled successfully” line in the log.
+2. **`opennextjs-cloudflare build`** (`npm run cf:build`) compiles `open-next.config.ts` into `.open-next/` so Wrangler can deploy a Worker.
+
+If step 1 is only `next build`, Wrangler then fails with “Could not find compiled Open Next config.”
+
+In the Worker project: **Settings → Build**, set:
+
+- **Build command:** `npx opennextjs-cloudflare build`  
+  (not `npm run build` — OpenNext itself calls `npm run build` to run Next.js)
+- **Deploy command:** `npx wrangler deploy`
+
+Manual deploy:
 
 ```bash
 npx wrangler login
 npm run deploy
 ```
 
-Point the Worker named `hacked0ff-website` at `hacked0ff.com` in the Cloudflare dashboard if the custom domain is not already attached.
+The Worker name in `wrangler.jsonc` is `hacked0ffcybersecurity-website`. Attach `hacked0ff.com` to that Worker if it is not already.
 
 ### Secrets
 
