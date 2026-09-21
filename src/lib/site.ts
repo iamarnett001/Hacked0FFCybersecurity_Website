@@ -5,7 +5,7 @@ export const site = {
   tagline:
     "When business is personal, you need a cybersecurity professional you can trust.",
   positioning:
-    "Practical cybersecurity for family businesses, closely held companies, and high-net-worth households. No theater. No enterprise sales process. We keep hackers off your business so you can run it.",
+    "Practical cybersecurity for family businesses, closely held companies, and high-net-worth households. No theater. No enterprise sales process. We help identify and mitigate risks keeping hackers off your business so you can run it.",
   description:
     "Trusted cybersecurity counsel for family businesses and high-net-worth owners. Assessment, managed protection, and incident readiness without building an internal security team.",
 } as const;
@@ -19,24 +19,28 @@ export const nav = [
 
 export const stats = [
   {
-    value: "$4.88M",
-    label: "Average cost of a data breach in 2024",
-    source: "IBM Cost of a Data Breach Report, 2024",
+    value: "81%",
+    label: "of small businesses reported suffering a security breach, a data breach or both in the past year.",
+    source: "Identity Theft Resource Center, 2025 Business Impact Report",
+    href: "https://www.idtheftcenter.org/post/2025-business-impact-report-cybercrime-costs-passed-consumers/",
   },
   {
-    value: "73%",
-    label: "of small-business owners reported a breach or attack in the prior year",
-    source: "Fortra Business Impact Report, 2023",
+    value: "70%",
+    label: "of small-business Incident Responces were associated with ransomware",
+    source: "Sophos, Annual Threat Report 2025: Cybercrime on Main Street",
+    href: "https://www.sophos.com/en-gb/blog/the-sophos-annual-threat-report-cybercrime-on-main-street-2025",
   },
   {
-    value: "85%",
-    label: "of ransomware attacks targeted small and midsize businesses",
-    source: "Veeam, Small Business Ransomware, 2023",
+    value: "15%",
+    label: "of different attack techniques are now being bolstered by generative AI",
+    source: "Verizon, 2026 Data Breach Investigations Report, May 2026",
+    href: "https://www.verizon.com/business/resources/reports/dbir/",
   },
   {
-    value: "194 days",
-    label: "average time to even identify a breach — then 64 more to contain it",
-    source: "IBM Cost of a Data Breach Report, 2024",
+    value: "56%",
+    label: "increase of AI-enabled malicious breaches in the last year",
+    source: "IBM Cost of a Data Breach Report, 2026",
+    href: "https://newsroom.ibm.com/2026-07-29-ibm-study-one-in-four-malicious-breaches-are-ai-enabled%2C-costing-companies-6-million-on-average?lnk=hpln1id",
   },
 ] as const;
 

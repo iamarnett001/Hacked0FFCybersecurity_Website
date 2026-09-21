@@ -31,7 +31,18 @@ export function WhyItMatters() {
                 {stat.label}
               </p>
               <p className="mt-4 text-[11px] tracking-wide text-muted-foreground">
-                {stat.source}
+                {"href" in stat && stat.href ? (
+                  <a
+                    href={stat.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 decoration-muted-foreground/40 transition-colors hover:text-foreground hover:decoration-foreground"
+                  >
+                    {stat.source}
+                  </a>
+                ) : (
+                  stat.source
+                )}
               </p>
             </article>
           ))}
