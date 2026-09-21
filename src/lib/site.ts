@@ -44,7 +44,11 @@ export const stats = [
   },
 ] as const;
 
-export const supportingFacts = [
+export const supportingFacts: {
+  title: string;
+  body: string;
+  source?: string;
+}[] = [
   {
     title: "You are not too small to be a target.",
     body: "Attackers look for valuable data and weak defenses, not headlines. Family businesses hold payroll, banking access, customer records, and personal wealth in the same environment — and often without a dedicated security team.",
@@ -59,7 +63,7 @@ export const supportingFacts = [
     body: "One in three small businesses say they would likely or definitely close after a cyberattack. For a family company, that is not an IT outage. It is the business, the reputation, and the household.",
     source: "TechValidate survey of SMBs, 2024",
   },
-] as const;
+];
 
 export const audiences = [
   {

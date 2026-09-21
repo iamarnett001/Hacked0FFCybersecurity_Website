@@ -31,18 +31,14 @@ export function WhyItMatters() {
                 {stat.label}
               </p>
               <p className="mt-4 text-[11px] tracking-wide text-muted-foreground">
-                {"href" in stat && stat.href ? (
-                  <a
-                    href={stat.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-2 decoration-muted-foreground/40 transition-colors hover:text-foreground hover:decoration-foreground"
-                  >
-                    {stat.source}
-                  </a>
-                ) : (
-                  stat.source
-                )}
+                <a
+                  href={stat.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 decoration-muted-foreground/40 transition-colors hover:text-foreground hover:decoration-foreground"
+                >
+                  {stat.source}
+                </a>
               </p>
             </article>
           ))}
@@ -57,7 +53,7 @@ export function WhyItMatters() {
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {fact.body}
               </p>
-              {"source" in fact && fact.source ? (
+              {fact.source ? (
                 <p className="text-[11px] text-muted-foreground/80">
                   {fact.source}
                 </p>
