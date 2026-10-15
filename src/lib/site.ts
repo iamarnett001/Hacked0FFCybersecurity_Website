@@ -1,7 +1,8 @@
 export const site = {
-  legalName: "Hacked0ff Cybersecurity",
-  shortName: "Hacked0ff",
-  email: "info@hacked0ff.com",
+  legalName: "Sovereignty Cybersecurity",
+  shortName: "Sovereignty",
+  domain: "sovereigntycyber.com",
+  email: "info@sovereigntycyber.com",
   tagline:
     "When business is personal, you need a cybersecurity professional you can trust.",
   positioning: `We help family businesses, closely held companies, and high-net-worth households identify and reduce cyber risk through practical, effective security solutions.

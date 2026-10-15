@@ -9,8 +9,8 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <a href="#top" className="flex items-center gap-3 text-foreground">
           <Mark className="size-7 text-primary" />
-          <span className="hidden text-[11px] font-medium tracking-[0.22em] uppercase text-muted-foreground sm:block">
-            Cybersecurity for small businesses
+          <span className="font-heading text-base tracking-tight text-foreground sm:text-lg">
+            Sovereignty Cybersecurity
           </span>
         </a>
 

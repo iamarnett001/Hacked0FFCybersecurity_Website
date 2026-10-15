@@ -9,6 +9,7 @@ import {
   type ContactResult,
 } from "@/lib/contact";
 import { acceptRequest } from "@/lib/rate-limit";
+import { site } from "@/lib/site";
 
 async function clientKey(): Promise<string> {
   const requestHeaders = await headers();
@@ -50,7 +51,7 @@ export async function submitInquiry(
     return {
       ok: false,
       error:
-        "We could not send that just now. Please email info@hacked0ff.com directly.",
+        `We could not send that just now. Please email ${site.email} directly.`,
     };
   }
 }

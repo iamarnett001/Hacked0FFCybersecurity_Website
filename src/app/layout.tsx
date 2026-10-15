@@ -19,15 +19,17 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://${site.domain}`),
   title: {
-    default: "Cybersecurity for small businesses",
+    default: "Sovereignty Cybersecurity",
     template: "%s",
   },
   description: site.description,
   openGraph: {
-    title: "Cybersecurity for small businesses",
+    title: "Sovereignty Cybersecurity",
     description: site.tagline,
     type: "website",
+    url: `https://${site.domain}`,
   },
 };
 

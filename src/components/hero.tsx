@@ -14,9 +14,14 @@ export function Hero() {
       />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 md:py-28 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] lg:items-end lg:py-32">
         <div className="space-y-8">
-          <p className="text-[11px] font-medium tracking-[0.28em] uppercase text-accent">
-            For owners, families, and closely held companies
-          </p>
+          <div className="space-y-2">
+            <p className="text-[11px] font-medium tracking-[0.28em] uppercase text-accent">
+              Sovereignty Cybersecurity
+            </p>
+            <p className="text-sm text-primary-foreground/70">
+              For owners, families, and closely held companies
+            </p>
+          </div>
           <h1 className="font-heading text-4xl leading-[1.12] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {site.tagline}
           </h1>

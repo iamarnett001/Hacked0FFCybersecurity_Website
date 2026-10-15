@@ -22,7 +22,7 @@ export function SiteFooter() {
             {site.email}
           </a>
           <p className="text-primary-foreground/60">
-            © {new Date().getFullYear()} {site.legalName}
+            © {new Date().getFullYear()} {site.legalName}. All rights reserved.
           </p>
         </div>
       </div>

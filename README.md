@@ -1,16 +1,17 @@
-# Cybersecurity for family businesses
+# Sovereignty Cybersecurity
 
-A professional marketing site for cybersecurity services aimed at family businesses, closely held companies, and high-net-worth households. The legal name is kept quiet on purpose so it can change later; the site leads with the promise, not the brand.
+A professional marketing site for cybersecurity services aimed at family businesses, closely held companies, and high-net-worth households.
 
+**Company:** Sovereignty Cybersecurity  
 **Tagline:** When business is personal, you need a cybersecurity professional you can trust.
 
-Live site: [https://hacked0ff.com](https://hacked0ff.com)
+Live site: [https://sovereigntycyber.com](https://sovereigntycyber.com)
 
 ## Stack
 
 - Next.js (App Router) and TypeScript
 - Tailwind CSS and shadcn/ui
-- Server Action contact form (`info@hacked0ff.com`)
+- Server Action contact form (`info@sovereigntycyber.com`)
 - Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`)
 
 ## Repository
@@ -54,7 +55,7 @@ npx wrangler login
 npm run deploy
 ```
 
-The Worker name in `wrangler.jsonc` is `hacked0ffcybersecurity-website`. Attach `hacked0ff.com` to that Worker if it is not already.
+The Worker name in `wrangler.jsonc` is `sovereigntycyber-website`. Attach `sovereigntycyber.com` to that Worker if it is not already.
 
 ### Secrets
 
@@ -62,8 +63,8 @@ Set these in Cloudflare → Worker → Settings → Variables and Secrets (not i
 
 ```
 RESEND_API_KEY
-CONTACT_FROM_EMAIL=Website <noreply@hacked0ff.com>
-CONTACT_TO_EMAIL=info@hacked0ff.com
+CONTACT_FROM_EMAIL=Website <noreply@sovereigntycyber.com>
+CONTACT_TO_EMAIL=info@sovereigntycyber.com
 ```
 
 Copy `.env.example` to `.env.local` for local email testing.
@@ -77,8 +78,8 @@ Copy `.env.example` to `.env.local` for local email testing.
 - Inquiry logs do not include names or email addresses
 - GitHub Actions runs `npm test`, `lint`, and `build` on every push
 
-Also turn on in the Cloudflare dashboard for `hacked0ff.com`: SSL/TLS Full (strict), Always Use HTTPS, Bot Fight Mode, and a WAF rate-limit on POST to `/`.
+Also turn on in the Cloudflare dashboard for `sovereigntycyber.com`: SSL/TLS Full (strict), Always Use HTTPS, Bot Fight Mode, and a WAF rate-limit on POST to `/`.
 
-## Changing the company name
+## Company identity
 
-The quiet legal name lives in `src/lib/site.ts` (`legalName` and `shortName`).
+Public name, email, and domain live in `src/lib/site.ts` (`legalName`, `shortName`, `domain`, `email`).
