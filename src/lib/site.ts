@@ -82,7 +82,7 @@ export const audiences = [
   },
   {
     title: "Family offices & high-net-worth households",
-    body: "Where business systems, personal wealth, travel, staff, and third parties overlap — and a breach is both financial and personal.",
+    body: "Where business systems, personal wealth, travel, staff, and third parties overlap, a breach is both financial and personal.",
   },
 ] as const;
 
