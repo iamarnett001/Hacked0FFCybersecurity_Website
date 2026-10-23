@@ -51,9 +51,10 @@ export function Hero() {
             Mitigating risks helps keep hackers off your business.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
-            Family companies and high-net-worth households are attacked because
-            the data is valuable and the defenses are thin. We help to close 
-            that gap with a named professional you can call.
+            Small companies and high-net-worth households are at risk of
+            sophisticated cyber attacks commonly seen against larger
+            organizations. We help identify and close your cybersecurity gaps
+            with an enterprise level cyber security expertise that you can call.
           </p>
         </aside>
       </div>
