@@ -37,7 +37,7 @@ export default function OverviewPage() {
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/70">
               {overview.positioning}
             </p>
-            <p className="mt-8 max-w-2xl border-l border-accent/60 pl-4 text-sm leading-relaxed text-primary-foreground/85 sm:text-base">
+            <p className="mt-8 max-w-2xl text-sm leading-relaxed text-accent sm:text-base">
               {overview.pricing}
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function OverviewPage() {
                 to replace one. We use these details to size the discussion to
                 your company.
               </p>
-              <p className="mt-5 text-sm leading-relaxed text-foreground">
+              <p className="mt-5 text-sm leading-relaxed text-accent">
                 {overview.pricing}
               </p>
             </div>

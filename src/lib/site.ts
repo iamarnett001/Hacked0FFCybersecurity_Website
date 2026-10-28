@@ -35,7 +35,7 @@ export const overview = {
   closing:
     "Cybersecurity is not one-size-fits-all. Let us show you what a right-sized cyber program would look like for you.",
   pricing:
-    "The cost for this service starts at $149 for a single site with less than 10 employees.",
+    "The Cybersecurity Overview starts at $149 for a single site with less than 10 employees.",
   questions: [
     "What cyber risks do I need to protect against that are relevant to my business?",
     "How well is my current business prepared and protected from a cyber event?",
