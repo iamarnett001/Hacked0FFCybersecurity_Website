@@ -15,9 +15,8 @@ export function ContactSection() {
             Tell us what you are trying to protect.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            A short note is enough. We will reply from {site.email} with a
-            proposed next step — typically a focused conversation, not a demo
-            theater.
+            A short note is enough. We will reply with a proposed next step —
+            typically a focused conversation, not a demo theater.
           </p>
           <p className="mt-8 text-sm text-muted-foreground">
             Direct line:{" "}

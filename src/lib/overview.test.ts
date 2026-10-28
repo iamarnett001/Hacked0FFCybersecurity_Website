@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { parseOverviewForm, validateOverview } from "./overview";
+import {
+  overviewRequestSubject,
+  parseOverviewForm,
+  validateOverview,
+} from "./overview";
 
 function validForm(): FormData {
   const form = new FormData();
@@ -13,6 +17,13 @@ function validForm(): FormData {
   form.set("employees", "8");
   return form;
 }
+
+test("overview subject includes Cybersecurity Overview", () => {
+  assert.equal(
+    overviewRequestSubject("Doe Family Office"),
+    "Cybersecurity Overview - Doe Family Office",
+  );
+});
 
 test("accepts a complete overview request", () => {
   const payload = parseOverviewForm(validForm());

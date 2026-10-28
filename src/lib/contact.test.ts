@@ -2,11 +2,19 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import {
+  informationRequestSubject,
   parseContactForm,
   stripHeaderUnsafe,
   validateContact,
 } from "./contact";
 import { acceptRequest, resetRateLimitForTests } from "./rate-limit";
+
+test("information request subject starts with the help topic", () => {
+  assert.equal(
+    informationRequestSubject("assessment"),
+    "Information Request - Assessment and roadmap",
+  );
+});
 
 test("strips CR/LF used in header injection", () => {
   assert.equal(stripHeaderUnsafe("Jane\r\nBcc: attacker@evil.test"), "JaneBcc: attacker@evil.test");

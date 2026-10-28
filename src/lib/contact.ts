@@ -1,5 +1,6 @@
 import { isCompanyName, isPersonName, isSafePlainText } from "./input-safety";
-import { interests, site } from "./site";
+import { sendSiteEmail } from "./mail";
+import { interests } from "./site";
 
 export type ContactPayload = {
   name: string;
@@ -118,15 +119,15 @@ export function validateContact(payload: ContactPayload): string | null {
   return null;
 }
 
-function interestLabel(value: string): string {
+export function interestLabel(value: string): string {
   return interests.find((item) => item.value === value)?.label ?? "Not specified";
 }
 
-export async function deliverInquiry(payload: ContactPayload): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  const to = process.env.CONTACT_TO_EMAIL ?? site.email;
+export function informationRequestSubject(interest: string): string {
+  return `Information Request - ${interestLabel(interest)}`;
+}
 
+export async function deliverInquiry(payload: ContactPayload): Promise<void> {
   const body = [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
@@ -137,27 +138,9 @@ export async function deliverInquiry(payload: ContactPayload): Promise<void> {
     payload.message || "(No additional note.)",
   ].join("\n");
 
-  if (!apiKey || !from) {
-    console.info("[contact] Inquiry accepted; email delivery is not configured.");
-    return;
-  }
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: payload.email,
-      subject: `Website inquiry from ${payload.name}`,
-      text: body,
-    }),
+  await sendSiteEmail({
+    subject: informationRequestSubject(payload.interest),
+    text: body,
+    replyTo: payload.email,
   });
-
-  if (!response.ok) {
-    throw new Error(`Email delivery failed: ${response.status}`);
-  }
 }

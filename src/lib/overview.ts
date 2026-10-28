@@ -1,7 +1,7 @@
 import { EMAIL_PATTERN, isAcceptablePhone, stripHeaderUnsafe } from "./contact";
 import type { ContactResult } from "./contact";
 import { isCompanyName, isPersonName } from "./input-safety";
-import { site } from "./site";
+import { sendSiteEmail } from "./mail";
 
 export type OverviewPayload = {
   company: string;
@@ -83,14 +83,13 @@ export function validateOverview(payload: OverviewPayload): string | null {
   return null;
 }
 
+export function overviewRequestSubject(company: string): string {
+  return `Cybersecurity Overview - ${company}`;
+}
+
 export async function deliverOverviewRequest(
   payload: OverviewPayload,
 ): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  const to = process.env.CONTACT_TO_EMAIL ?? site.email;
-  const fullName = `${payload.firstName} ${payload.lastName}`;
-
   const body = [
     "Source: Cybersecurity Overview page",
     `Company: ${payload.company}`,
@@ -101,29 +100,9 @@ export async function deliverOverviewRequest(
     `Approximate employees: ${payload.employees}`,
   ].join("\n");
 
-  if (!apiKey || !from) {
-    console.info(
-      "[overview] Request accepted; email delivery is not configured.",
-    );
-    return;
-  }
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: payload.email,
-      subject: `Cybersecurity Overview request from ${fullName}`,
-      text: body,
-    }),
+  await sendSiteEmail({
+    subject: overviewRequestSubject(payload.company),
+    text: body,
+    replyTo: payload.email,
   });
-
-  if (!response.ok) {
-    throw new Error(`Email delivery failed: ${response.status}`);
-  }
 }

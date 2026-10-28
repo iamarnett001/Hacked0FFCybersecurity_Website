@@ -60,15 +60,13 @@ The Worker name in `wrangler.jsonc` is `sovereigntycyber-website`. Attach `sover
 
 ### Secrets
 
-Set these in Cloudflare → Worker → Settings → Variables and Secrets (not in git):
+Both forms email **`info@sovereigntycyber.com`**. They will not send until Resend is configured:
 
-```
-RESEND_API_KEY
-CONTACT_FROM_EMAIL=Website <noreply@sovereigntycyber.com>
-CONTACT_TO_EMAIL=info@sovereigntycyber.com
-```
+1. Create a Resend account and verify `sovereigntycyber.com`.
+2. In Cloudflare → Worker `sovereigntycyber-website` → Settings → Variables and Secrets, add a **secret** named `RESEND_API_KEY`.
+3. Optionally add `CONTACT_FROM_EMAIL` as `Sovereignty Cybersecurity <noreply@sovereigntycyber.com>`. If omitted, that from-address is used automatically. The from domain must be verified in Resend.
 
-Copy `.env.example` to `.env.local` for local email testing.
+Copy `.env.example` to `.env.local` for local email testing. After adding the secret, redeploy the Worker.
 
 ## Security controls
 
