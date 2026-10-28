@@ -1,4 +1,4 @@
-import { EMAIL_PATTERN, PHONE_PATTERN, stripHeaderUnsafe } from "./contact";
+import { EMAIL_PATTERN, isAcceptablePhone, stripHeaderUnsafe } from "./contact";
 import type { ContactResult } from "./contact";
 import { isCompanyName, isPersonName } from "./input-safety";
 import { site } from "./site";
@@ -72,7 +72,7 @@ export function validateOverview(payload: OverviewPayload): string | null {
     return "Please enter a valid email address.";
   }
 
-  if (!payload.phone || !PHONE_PATTERN.test(payload.phone)) {
+  if (!isAcceptablePhone(payload.phone, true)) {
     return "Please enter a valid phone number.";
   }
 

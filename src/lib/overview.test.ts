@@ -9,7 +9,7 @@ function validForm(): FormData {
   form.set("firstName", "Jane");
   form.set("lastName", "Doe");
   form.set("email", "jane@example.com");
-  form.set("phone", "+1 (555) 010-0101");
+  form.set("phone", "+1 (212) 201-0101");
   form.set("employees", "8");
   return form;
 }
@@ -53,6 +53,22 @@ test("requires company, first name, last name, phone, and headcount", () => {
   assert.equal(
     validateOverview(parseOverviewForm(zeroEmployees)),
     "Please enter an approximate number of employees.",
+  );
+});
+
+test("rejects 555 area codes", () => {
+  const reserved = validForm();
+  reserved.set("phone", "(555) 201-0101");
+  assert.equal(
+    validateOverview(parseOverviewForm(reserved)),
+    "Please enter a valid phone number.",
+  );
+
+  const withCountry = validForm();
+  withCountry.set("phone", "+1 555 201 0101");
+  assert.equal(
+    validateOverview(parseOverviewForm(withCountry)),
+    "Please enter a valid phone number.",
   );
 });
 

@@ -19,6 +19,28 @@ export const EMAIL_PATTERN =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 export const PHONE_PATTERN = /^[0-9+().\s-]*$/;
 
+function nanpAreaCode(value: string): string | null {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("1")) {
+    return digits.slice(1, 4);
+  }
+  if (digits.length === 10) {
+    return digits.slice(0, 3);
+  }
+  return null;
+}
+
+export function isAcceptablePhone(value: string, required = false): boolean {
+  if (!value) {
+    return !required;
+  }
+  if (!PHONE_PATTERN.test(value)) {
+    return false;
+  }
+  // 555 is reserved in the North American Numbering Plan for fiction.
+  return nanpAreaCode(value) !== "555";
+}
+
 const LIMITS = {
   name: 120,
   email: 254,
@@ -74,7 +96,7 @@ export function validateContact(payload: ContactPayload): string | null {
     return "Please enter a valid email address.";
   }
 
-  if (payload.phone && !PHONE_PATTERN.test(payload.phone)) {
+  if (!isAcceptablePhone(payload.phone)) {
     return "Please enter a valid phone number.";
   }
 

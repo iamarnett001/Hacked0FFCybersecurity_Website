@@ -26,11 +26,23 @@ test("accepts a normal inquiry", () => {
   form.set("name", "Jane Doe");
   form.set("email", "jane@example.com");
   form.set("organization", "Doe Family Office");
-  form.set("phone", "+1 (555) 010-0101");
+  form.set("phone", "+1 (212) 201-0101");
   form.set("interest", "assessment");
   form.set("message", "Need a roadmap.");
   const payload = parseContactForm(form);
   assert.equal(validateContact(payload), null);
+});
+
+test("rejects 555 area codes on the conversation form", () => {
+  const form = new FormData();
+  form.set("name", "Jane Doe");
+  form.set("email", "jane@example.com");
+  form.set("phone", "555-201-0101");
+  form.set("interest", "assessment");
+  assert.equal(
+    validateContact(parseContactForm(form)),
+    "Please enter a valid phone number.",
+  );
 });
 
 test("rejects code and prompt text in contact fields", () => {
