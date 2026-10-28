@@ -75,6 +75,7 @@ Copy `.env.example` to `.env.local` for local email testing.
 - `poweredByHeader` is off (no `X-Powered-By: Next.js`)
 - HSTS, CSP, `X-Frame-Options: DENY`, `nosniff`, Referrer-Policy, Permissions-Policy
 - Contact fields are length-capped and stripped of CR/LF to block SMTP header injection
+- Names, company, and notes reject HTML/code markers and common prompt-injection phrasing
 - Honeypot field plus per-IP rate limit (5 inquiries / 15 minutes)
 - Inquiry logs do not include names or email addresses
 - GitHub Actions runs `npm test`, `lint`, and `build` on every push
