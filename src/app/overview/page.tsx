@@ -37,6 +37,9 @@ export default function OverviewPage() {
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/70">
               {overview.positioning}
             </p>
+            <p className="mt-8 max-w-2xl border-l border-accent/60 pl-4 text-sm leading-relaxed text-primary-foreground/85 sm:text-base">
+              {overview.pricing}
+            </p>
           </div>
         </section>
 
@@ -102,12 +105,15 @@ export default function OverviewPage() {
                 Request your overview
               </p>
               <h2 className="mt-4 font-heading text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-                Tell us who you are. We will follow up from {site.email}.
+                Tell us who you are.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-muted-foreground">
                 This is a conversation starter, not a questionnaire that tries
                 to replace one. We use these details to size the discussion to
                 your company.
+              </p>
+              <p className="mt-5 text-sm leading-relaxed text-foreground">
+                {overview.pricing}
               </p>
             </div>
             <OverviewForm />

@@ -23,16 +23,8 @@ export const nav = [
   { href: "/#contact", label: "Request a conversation" },
 ] as const;
 
-// Short path for QR codes, business cards, and one-pagers. Keep this out of the primary nav.
+// Stable QR / business-card URL. Do not rename this path when copy changes.
 export const overviewPath = "/overview";
-
-export const employeeCounts = [
-  { value: "1-10", label: "1–10 employees" },
-  { value: "11-50", label: "11–50 employees" },
-  { value: "51-200", label: "51–200 employees" },
-  { value: "201+", label: "201+ employees" },
-  { value: "household", label: "Family office / household" },
-] as const;
 
 export const overview = {
   title: "Cybersecurity Overview",
@@ -42,6 +34,8 @@ export const overview = {
     "This overview is designed to answer the questions owners actually ask before they spend more, or live with too little protection.",
   closing:
     "Cybersecurity is not one-size-fits-all. Let us show you what a right-sized cyber program would look like for you.",
+  pricing:
+    "The cost for this service starts at $149 for a single site with less than 10 employees.",
   questions: [
     "What cyber risks do I need to protect against that are relevant to my business?",
     "How well is my current business prepared and protected from a cyber event?",

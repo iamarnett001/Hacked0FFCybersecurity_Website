@@ -1,6 +1,6 @@
 import { EMAIL_PATTERN, PHONE_PATTERN, stripHeaderUnsafe } from "./contact";
 import type { ContactResult } from "./contact";
-import { employeeCounts, site } from "./site";
+import { site } from "./site";
 
 export type OverviewPayload = {
   company: string;
@@ -20,13 +20,11 @@ const LIMITS = {
   lastName: 80,
   email: 254,
   phone: 40,
-  employees: 40,
+  employees: 8,
   faxConfirm: 200,
 } as const;
 
-const employeeValues = new Set<string>(
-  employeeCounts.map((item) => item.value),
-);
+const EMPLOYEE_PATTERN = /^\d{1,6}$/;
 
 function read(formData: FormData, key: string, max: number): string {
   const value = formData.get(key);
@@ -77,17 +75,11 @@ export function validateOverview(payload: OverviewPayload): string | null {
     return "Please enter a valid phone number.";
   }
 
-  if (!employeeValues.has(payload.employees)) {
-    return "Please choose an approximate number of employees.";
+  if (!EMPLOYEE_PATTERN.test(payload.employees) || Number(payload.employees) < 1) {
+    return "Please enter an approximate number of employees.";
   }
 
   return null;
-}
-
-function employeesLabel(value: string): string {
-  return (
-    employeeCounts.find((item) => item.value === value)?.label ?? value
-  );
 }
 
 export async function deliverOverviewRequest(
@@ -105,7 +97,7 @@ export async function deliverOverviewRequest(
     `Last name: ${payload.lastName}`,
     `Email: ${payload.email}`,
     `Phone: ${payload.phone}`,
-    `Employees: ${employeesLabel(payload.employees)}`,
+    `Approximate employees: ${payload.employees}`,
   ].join("\n");
 
   if (!apiKey || !from) {

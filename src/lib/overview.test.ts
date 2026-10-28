@@ -10,7 +10,7 @@ function validForm(): FormData {
   form.set("lastName", "Doe");
   form.set("email", "jane@example.com");
   form.set("phone", "+1 (555) 010-0101");
-  form.set("employees", "1-10");
+  form.set("employees", "8");
   return form;
 }
 
@@ -45,7 +45,14 @@ test("requires company, first name, last name, phone, and headcount", () => {
   missingEmployees.set("employees", "all-of-them");
   assert.equal(
     validateOverview(parseOverviewForm(missingEmployees)),
-    "Please choose an approximate number of employees.",
+    "Please enter an approximate number of employees.",
+  );
+
+  const zeroEmployees = validForm();
+  zeroEmployees.set("employees", "0");
+  assert.equal(
+    validateOverview(parseOverviewForm(zeroEmployees)),
+    "Please enter an approximate number of employees.",
   );
 });
 

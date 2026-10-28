@@ -10,7 +10,7 @@ import {
 import { submitOverviewRequest } from "@/app/actions/overview";
 import { buttonVariants } from "@/components/ui/button";
 import type { OverviewResult } from "@/lib/overview";
-import { employeeCounts, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const fieldClass =
@@ -146,24 +146,24 @@ export function OverviewForm() {
           />
         </Field>
       </div>
-      <Field label="Number of employees" htmlFor="overview-employees">
-        <select
+      <Field
+        label="Approximate number of employees"
+        htmlFor="overview-employees"
+      >
+        <input
           id="overview-employees"
           name="employees"
+          type="number"
           required
+          min={1}
+          max={999999}
+          step={1}
+          inputMode="numeric"
+          placeholder="e.g. 8"
           value={fields.employees}
           onChange={(event) => update("employees", event.target.value)}
           className={fieldClass}
-        >
-          <option value="" disabled>
-            Select a range
-          </option>
-          {employeeCounts.map((item) => (
-            <option key={item.value} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </select>
+        />
       </Field>
       <div className="sr-only" aria-hidden="true">
         <label htmlFor="overview-fax">Fax</label>
