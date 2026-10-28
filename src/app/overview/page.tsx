@@ -37,9 +37,6 @@ export default function OverviewPage() {
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/70">
               {overview.positioning}
             </p>
-            <p className="mt-8 max-w-2xl text-sm leading-relaxed text-accent sm:text-base">
-              {overview.pricing}
-            </p>
           </div>
         </section>
 

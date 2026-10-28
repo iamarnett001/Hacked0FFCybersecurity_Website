@@ -84,7 +84,7 @@ Also turn on in the Cloudflare dashboard for `sovereigntycyber.com`: SSL/TLS Ful
 
 URL for QR codes, business cards, and one-pagers: [https://sovereigntycyber.com/overview](https://sovereigntycyber.com/overview)
 
-Keep this path stable for printed QR codes. The page is omitted from the primary navigation on purpose. The homepage links to it from the contact section and the footer. Search engines are asked not to index it (`noindex`). The form emails `info@sovereigntycyber.com` with company name, first name, last name, email, phone, and an approximate employee count. Pricing starts at $149 for a single site with less than 10 employees.
+Keep this path stable for printed QR codes. The page is omitted from the primary navigation on purpose. The homepage links to it from the contact section and the footer. Search engines are asked not to index it (`noindex`). The form emails `info@sovereigntycyber.com` with company name, first name, last name, email, phone, and an approximate employee count. Pricing starts at $199 for a single site with less than 10 employees.
 
 ## Company identity
 
