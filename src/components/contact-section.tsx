@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ContactForm } from "@/components/contact-form";
 import { site } from "@/lib/site";
 
@@ -25,6 +27,16 @@ export function ContactSection() {
             >
               {site.email}
             </a>
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Arriving from a card or one-pager?{" "}
+            <Link
+              className="text-foreground underline underline-offset-4"
+              href="/overview"
+            >
+              Request a Cybersecurity Overview
+            </Link>
+            .
           </p>
         </div>
         <ContactForm />

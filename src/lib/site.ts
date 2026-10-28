@@ -17,11 +17,60 @@ Just clear advice, meaningful protection, and a trusted partner focused on your 
 } as const;
 
 export const nav = [
-  { href: "#why", label: "Why it matters" },
-  { href: "#services", label: "Services" },
-  { href: "#outcomes", label: "Outcomes" },
-  { href: "#contact", label: "Request a conversation" },
+  { href: "/#why", label: "Why it matters" },
+  { href: "/#services", label: "Services" },
+  { href: "/#outcomes", label: "Outcomes" },
+  { href: "/#contact", label: "Request a conversation" },
 ] as const;
+
+// Short path for QR codes, business cards, and one-pagers. Keep this out of the primary nav.
+export const overviewPath = "/overview";
+
+export const employeeCounts = [
+  { value: "1-10", label: "1–10 employees" },
+  { value: "11-50", label: "11–50 employees" },
+  { value: "51-200", label: "51–200 employees" },
+  { value: "201+", label: "201+ employees" },
+  { value: "household", label: "Family office / household" },
+] as const;
+
+export const overview = {
+  title: "Cybersecurity Overview",
+  eyebrow: "A right-sized first look",
+  lead: "A personalized cybersecurity program overview — not a one-size-fits-all package.",
+  positioning:
+    "This overview is designed to answer the questions owners actually ask before they spend more, or live with too little protection.",
+  closing:
+    "Cybersecurity is not one-size-fits-all. Let us show you what a right-sized cyber program would look like for you.",
+  questions: [
+    "What cyber risks do I need to protect against that are relevant to my business?",
+    "How well is my current business prepared and protected from a cyber event?",
+    "Am I paying too much for what I have?",
+    "Do I have too little cyber protection in place?",
+  ],
+  delivers: [
+    {
+      title: "Threat exposure",
+      body: "A summary of the cyber threat exposure that actually applies to your business — not a generic scare list.",
+    },
+    {
+      title: "Gaps in the current program",
+      body: "Where your current protections are thin, overlapping, or missing, in language you can act on.",
+    },
+    {
+      title: "What you need, and what you don't",
+      body: "A clear view of what belongs in a right-sized program for you, and what you can stop paying for.",
+    },
+    {
+      title: "Where clarity is missing",
+      body: "The questions, documentation, and decisions that still need to be resolved before you can be confident.",
+    },
+    {
+      title: "Cost versus value",
+      body: "Whether the current spend is aligned with the protection and support you are actually receiving.",
+    },
+  ],
+} as const;
 
 export const stats = [
   {

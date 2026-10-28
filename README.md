@@ -12,6 +12,7 @@ Live site: [https://sovereigntycyber.com](https://sovereigntycyber.com)
 - Next.js (App Router) and TypeScript
 - Tailwind CSS and shadcn/ui
 - Server Action contact form (`info@sovereigntycyber.com`)
+- Leave-behind **Cybersecurity Overview** page at [`/overview`](https://sovereigntycyber.com/overview) (QR / business card URL; not in the main nav)
 - Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`)
 
 ## Repository
@@ -78,7 +79,13 @@ Copy `.env.example` to `.env.local` for local email testing.
 - Inquiry logs do not include names or email addresses
 - GitHub Actions runs `npm test`, `lint`, and `build` on every push
 
-Also turn on in the Cloudflare dashboard for `sovereigntycyber.com`: SSL/TLS Full (strict), Always Use HTTPS, Bot Fight Mode, and a WAF rate-limit on POST to `/`.
+Also turn on in the Cloudflare dashboard for `sovereigntycyber.com`: SSL/TLS Full (strict), Always Use HTTPS, Bot Fight Mode, and a WAF rate-limit on POST to `/` and `/overview`.
+
+## Cybersecurity Overview page
+
+URL for QR codes, business cards, and one-pagers: [https://sovereigntycyber.com/overview](https://sovereigntycyber.com/overview)
+
+The page is omitted from the primary navigation on purpose. The homepage links to it from the contact section and the footer. Search engines are asked not to index it (`noindex`). The form emails `info@sovereigntycyber.com` with company name, first name, last name, email, phone, and employee range.
 
 ## Company identity
 

@@ -1,25 +1,14 @@
 "use server";
 
-import { headers } from "next/headers";
-
 import {
   deliverInquiry,
   parseContactForm,
   validateContact,
   type ContactResult,
 } from "@/lib/contact";
+import { clientIpKey } from "@/lib/client-ip";
 import { acceptRequest } from "@/lib/rate-limit";
 import { site } from "@/lib/site";
-
-async function clientKey(): Promise<string> {
-  const requestHeaders = await headers();
-  return (
-    requestHeaders.get("cf-connecting-ip") ??
-    requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    requestHeaders.get("x-real-ip") ??
-    "unknown"
-  );
-}
 
 export async function submitInquiry(
   _previous: ContactResult | null,
@@ -31,7 +20,7 @@ export async function submitInquiry(
     return { ok: true };
   }
 
-  if (!acceptRequest(await clientKey())) {
+  if (!acceptRequest(await clientIpKey())) {
     return {
       ok: false,
       error: "Too many requests. Please wait a few minutes and try again.",

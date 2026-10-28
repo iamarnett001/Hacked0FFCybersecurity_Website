@@ -1,4 +1,5 @@
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 import { Mark } from "@/components/mark";
 import { nav } from "@/lib/site";
@@ -7,22 +8,22 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a href="#top" className="flex items-center gap-3 text-foreground">
+        <Link href="/" className="flex items-center gap-3 text-foreground">
           <Mark className="size-7 text-primary" />
           <span className="font-heading text-base tracking-tight text-foreground sm:text-lg">
             Sovereignty Cybersecurity
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {nav.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -41,13 +42,13 @@ export function SiteHeader() {
             className="absolute right-0 z-50 mt-1 w-56 border border-border bg-background px-4 py-2 shadow-md"
           >
             {nav.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className="block py-3 text-sm text-foreground"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </details>

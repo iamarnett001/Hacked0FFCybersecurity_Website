@@ -14,9 +14,9 @@ export type ContactResult =
   | { ok: true }
   | { ok: false; error: string };
 
-const EMAIL_PATTERN =
+export const EMAIL_PATTERN =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-const PHONE_PATTERN = /^[0-9+().\s-]*$/;
+export const PHONE_PATTERN = /^[0-9+().\s-]*$/;
 
 const LIMITS = {
   name: 120,

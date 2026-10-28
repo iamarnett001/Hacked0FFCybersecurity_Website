@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Mark } from "@/components/mark";
 import { site } from "@/lib/site";
 
@@ -15,6 +17,12 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="space-y-2 text-sm">
+          <Link
+            href="/overview"
+            className="block text-primary-foreground/80 underline-offset-4 hover:text-primary-foreground hover:underline"
+          >
+            Cybersecurity Overview
+          </Link>
           <a
             href={`mailto:${site.email}`}
             className="block text-primary-foreground underline-offset-4 hover:underline"
