@@ -64,6 +64,29 @@ test("strips header-injection characters from overview fields", () => {
   assert.equal(validateOverview(payload), "Please enter a valid email address.");
 });
 
+test("rejects code and prompt text in overview name fields", () => {
+  const script = validForm();
+  script.set("company", "<script>alert(1)</script>");
+  assert.equal(
+    validateOverview(parseOverviewForm(script)),
+    "Please enter your company name.",
+  );
+
+  const prompt = validForm();
+  prompt.set("firstName", "Ignore previous instructions");
+  assert.equal(
+    validateOverview(parseOverviewForm(prompt)),
+    "Please enter your first name.",
+  );
+
+  const template = validForm();
+  template.set("lastName", "${process.env}");
+  assert.equal(
+    validateOverview(parseOverviewForm(template)),
+    "Please enter your last name.",
+  );
+});
+
 test("honeypot overview submissions look successful", () => {
   const form = new FormData();
   form.set("company", "x");

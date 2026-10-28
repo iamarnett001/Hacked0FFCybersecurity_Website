@@ -1,5 +1,6 @@
 import { EMAIL_PATTERN, PHONE_PATTERN, stripHeaderUnsafe } from "./contact";
 import type { ContactResult } from "./contact";
+import { isCompanyName, isPersonName } from "./input-safety";
 import { site } from "./site";
 
 export type OverviewPayload = {
@@ -55,15 +56,15 @@ export function validateOverview(payload: OverviewPayload): string | null {
     return null;
   }
 
-  if (payload.company.length < 2) {
+  if (payload.company.length < 2 || !isCompanyName(payload.company)) {
     return "Please enter your company name.";
   }
 
-  if (payload.firstName.length < 2) {
+  if (payload.firstName.length < 2 || !isPersonName(payload.firstName)) {
     return "Please enter your first name.";
   }
 
-  if (payload.lastName.length < 2) {
+  if (payload.lastName.length < 2 || !isPersonName(payload.lastName)) {
     return "Please enter your last name.";
   }
 

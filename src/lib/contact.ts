@@ -1,3 +1,4 @@
+import { isCompanyName, isPersonName, isSafePlainText } from "./input-safety";
 import { interests, site } from "./site";
 
 export type ContactPayload = {
@@ -65,7 +66,7 @@ export function validateContact(payload: ContactPayload): string | null {
     return null;
   }
 
-  if (payload.name.length < 2) {
+  if (payload.name.length < 2 || !isPersonName(payload.name)) {
     return "Please enter your name.";
   }
 
@@ -75,6 +76,14 @@ export function validateContact(payload: ContactPayload): string | null {
 
   if (payload.phone && !PHONE_PATTERN.test(payload.phone)) {
     return "Please enter a valid phone number.";
+  }
+
+  if (payload.organization && !isCompanyName(payload.organization)) {
+    return "Please enter a valid company or family office name.";
+  }
+
+  if (payload.message && !isSafePlainText(payload.message)) {
+    return "Please enter your note in plain language, without code or markup.";
   }
 
   if (
